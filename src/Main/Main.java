@@ -6,6 +6,7 @@ import javafx.scene.control.Label;
 import java.io.File;
 import java.util.ArrayList;
 
+import org.apache.poi.hslf.model.textproperties.TextAlignmentProp;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -14,24 +15,25 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import javafx.application.Application;
 import javafx.geometry.Pos;
 import javafx.scene.control.Tooltip;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
+import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 
 public class Main extends Application {
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-		
+
 		Font font = new Font(18);
-		
-		Label label = new Label("Welcome to DupChecker!\n"
-				+ "\n"
+
+		Label label = new Label("Welcome to DupChecker!\n" + "\n"
 				+ "This program takes in two columns of redundant data from different spreadsheets.xlsx\n"
 				+ "and outputs a new Excel spreadsheet containing only unique values.\n" + "No Duplicates!!");
-		
-		label.setFont(font);
-	
+
+//		label.setFont(font);
+
 		label.setAlignment(Pos.BASELINE_CENTER);
 
 		VBox vBox = new VBox(4);
@@ -40,10 +42,12 @@ public class Main extends Application {
 		vBox.setAlignment(Pos.TOP_CENTER);
 
 		Tooltip.install(vBox, tp);
+		label.setTextAlignment(TextAlignment.CENTER);
 
 		vBox.getChildren().add(label);
 
-		Scene scene = new Scene(vBox,700,300);
+		Scene scene = new Scene(vBox, 800, 400);
+		scene.getStylesheets().addAll("style.css");
 
 		scene.setOnMousePressed(e -> {
 

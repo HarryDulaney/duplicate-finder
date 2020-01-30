@@ -1,0 +1,6 @@
+.label {
+	-fx-font: 16pt "Serif";
+	-fx-padding: 10;
+	-fx-background-color: #c0c0c0;
+	-fx-text-color: #004040;
+}

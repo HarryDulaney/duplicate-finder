@@ -9,6 +9,7 @@ import java.util.logging.Logger;
 
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -76,6 +77,7 @@ public class ExcelAccessObject {
 	 * @throws IOException
 	 * @throws InvalidFormatException
 	 */
+	@SuppressWarnings("deprecation")
 	public static ArrayList<String> getColumn(File file, String columnHeader, String sheetname) throws Exception {
 
 		ArrayList<String> colList = new ArrayList<>();
@@ -91,8 +93,10 @@ public class ExcelAccessObject {
 
 			for (Cell cell : headerRow) {
 				System.out.println(cell.getRichStringCellValue().getString());
-				if (cell.getRichStringCellValue().getString().equalsIgnoreCase(columnHeader)) {
-					columnIndex = cell.getColumnIndex();
+				if (cell.getCellTypeEnum() == CellType.STRING) {
+					if (cell.getRichStringCellValue().getString().equalsIgnoreCase(columnHeader)) {
+						columnIndex = cell.getColumnIndex();
+					}
 				}
 			}
 
@@ -100,7 +104,7 @@ public class ExcelAccessObject {
 				if (row == headerRow)
 					continue;
 				for (Cell cell : row) {
-					System.out.println(cell.getRichStringCellValue().getString());
+
 					if (cell.getColumnIndex() == columnIndex) {
 						colList.add(cell.getRichStringCellValue().getString());
 
